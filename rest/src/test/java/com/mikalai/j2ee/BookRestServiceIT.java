@@ -64,23 +64,23 @@ public class BookRestServiceIT {
 
         // POSTs a Book
         Response response = client.target(uri).request().post(Entity.entity(book, MediaType.APPLICATION_XML));
-        assertEquals(Response.Status.CREATED, response.getStatusInfo());
+        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatusInfo().getStatusCode());
         URI bookURI = response.getLocation();
 
         // With the location, GETs the Book
         response = client.target(bookURI).request().get();
         book = response.readEntity(Book.class);
-        assertEquals(Response.Status.OK, response.getStatusInfo());
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatusInfo().getStatusCode());
         assertEquals("The Hitchhiker's Guide to the Galaxy", book.getTitle());
 
         // Gets the book id and DELETEs it
         String bookId = bookURI.toString().split("/")[6];
         response = client.target(uri).path(bookId).request().delete();
-        assertEquals(Response.Status.NO_CONTENT, response.getStatusInfo());
+        assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatusInfo().getStatusCode());
 
         // GETs the Book and checks it has been deleted
         response = client.target(bookURI).request().get();
-        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+        assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatusInfo().getStatusCode());
 
     }
 
@@ -89,14 +89,14 @@ public class BookRestServiceIT {
 
         // POSTs a Null Book
         Response response = client.target(uri).request().post(Entity.entity(null, MediaType.APPLICATION_XML));
-        assertEquals(Response.Status.BAD_REQUEST, response.getStatusInfo());
+        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatusInfo().getStatusCode());
     }
 
     @Test
     public void shouldNotFindTheBookID() throws JAXBException {
 
         // GETs a Book with an unknown ID
-        Response response = client.target(uri).path("invalidID").request().get();
-        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+        Response response = client.target(uri).path("-3").request().get();
+        assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatusInfo().getStatusCode());
     }
 }

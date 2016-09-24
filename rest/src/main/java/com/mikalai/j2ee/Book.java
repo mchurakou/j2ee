@@ -13,7 +13,7 @@ public class Book {
 
     @Id
     @GeneratedValue
-    private String id;
+    private Integer id;
     @Column(nullable = false)
     private String title;
     private Float price;
@@ -30,7 +30,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String id, String title, Float price, String description, String isbn, Integer nbOfPage, Boolean illustrations) {
+    public Book(int Integer, String title, Float price, String description, String isbn, Integer nbOfPage, Boolean illustrations) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -53,11 +53,11 @@ public class Book {
     // =          Getters & Setters         =
     // ======================================
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

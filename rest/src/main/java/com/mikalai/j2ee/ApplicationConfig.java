@@ -1,6 +1,7 @@
 package com.mikalai.j2ee;
 
-import org.eclipse.persistence.jaxb.rs.MOXyJsonProvider;
+
+import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -26,7 +27,7 @@ public class ApplicationConfig extends Application {
         HashSet<Class<?>> c = new HashSet<>();
         c.add(BookRestService.class);
 
-        c.add(MOXyJsonProvider.class);
+        c.add(JacksonJsonProvider.class);
 
         classes = Collections.unmodifiableSet(c);
     }

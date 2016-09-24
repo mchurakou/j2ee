@@ -41,7 +41,7 @@ public class BookRestService {
             throw new BadRequestException();
 
         em.persist(book);
-        URI bookUri = uriInfo.getAbsolutePathBuilder().path(book.getId()).build();
+        URI bookUri = uriInfo.getAbsolutePathBuilder().path(book.getId().toString()).build();
         return Response.created(bookUri).build();
     }
 
@@ -60,7 +60,7 @@ public class BookRestService {
      */
     @GET
     @Path("{id}")
-    public Response getBook(@PathParam("id") String id) {
+    public Response getBook(@PathParam("id") Integer id) {
         Book book = em.find(Book.class, id);
 
         if (book == null)
@@ -74,7 +74,7 @@ public class BookRestService {
      */
     @DELETE
     @Path("{id}")
-    public Response deleteBook(@PathParam("id") String id) {
+    public Response deleteBook(@PathParam("id") Integer id) {
         Book book = em.find(Book.class, id);
 
         if (book == null)
